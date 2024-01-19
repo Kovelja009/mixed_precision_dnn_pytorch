@@ -1,0 +1,244 @@
+with nn.parameter_scope("conv1"):
+    stride = (1, 1)
+    r = conv(x, 16, (3, 3), cfg, test,
+                pad=(1, 1), stride=stride, with_bias=False)
+    r = nonl(PF.batch_normalization(
+        r, batch_stat=not test), cfg, inplace=True)
+hidden = {}
+hidden['r0'] = r
+
+### provided that this is the conv function definition
+def conv(x, outmaps, kernel, cfg, test, name=None, pad=None, stride=None,
+         with_bias=True, w_init=None, b_init=None):
+
+    if name is None:
+        pname = "quantized_conv/W"
+    else:
+        pname = "{}/quantized_conv/W".format(name)
+
+    quantization_w, quantization_b = get_quantizers(cfg=cfg, test=test, pname=pname, with_bias=with_bias)
+
+    return PQ.quantized_convolution(x, outmaps, kernel,
+                                    name=name,
+                                    pad=pad, stride=stride,
+                                    with_bias=with_bias,
+                                    w_init=w_init, b_init=b_init,
+                                    quantization_w=quantization_w,
+                                    quantization_b=quantization_b)
+
+
+### I assume that they are only quantizing convolutions and not batch batch_normalization 
+
+
+
+#############################################################################################################
+Configuration (training both weights and activations): PARAMETRIC_FP_WAQ_DELTA_XMAX_RLR 
+
+Weights:
+
+we have 3 residuals (each of them has 3 layers <each layer has 2 basic blocks>) + 18 
+one ordinary convolution layer                                                  + 1
+one fully connected layer (can be seperated into 2 parts: weights and biases)   + 2
+                                                                                = 21 quantizers (each having delta and xmax parameters)
+
+Layers (shape/number of parameters):
+
+conv1/W  (16, 3, 3, 3)   432
+res1/layer1/basicblock1/W        (16, 16, 3, 3)  2304
+res1/layer1/basicblock2/W        (16, 16, 3, 3)  2304
+res1/layer2/basicblock1/W        (16, 16, 3, 3)  2304
+res1/layer2/basicblock2/W        (16, 16, 3, 3)  2304
+res1/layer3/basicblock1/W        (16, 16, 3, 3)  2304
+res1/layer3/basicblock2/W        (16, 16, 3, 3)  2304
+res2/layer1/basicblock1/W        (32, 16, 3, 3)  4608
+res2/layer1/basicblock2/W        (32, 32, 3, 3)  9216
+res2/layer2/basicblock1/W        (32, 32, 3, 3)  9216
+res2/layer2/basicblock2/W        (32, 32, 3, 3)  9216
+res2/layer3/basicblock1/W        (32, 32, 3, 3)  9216
+res2/layer3/basicblock2/W        (32, 32, 3, 3)  9216
+res3/layer1/basicblock1/W        (64, 32, 3, 3)  18432
+res3/layer1/basicblock2/W        (64, 64, 3, 3)  36864
+res3/layer2/basicblock1/W        (64, 64, 3, 3)  36864
+res3/layer2/basicblock2/W        (64, 64, 3, 3)  36864
+res3/layer3/basicblock1/W        (64, 64, 3, 3)  36864
+res3/layer3/basicblock2/W        (64, 64, 3, 3)  36864
+fc/W   (64, 10)        640
+fc/b   (10,)   10
+
+
+
+Activations:
+
+we have 3 residuals (each of them has 3 layers <each layer has 2 basic blocks>) + 18 
+one ordinary convolution layer                                                  + 1
+                                                                                = 19 quantizers (each having delta and xmax parameters)
+note: I think that fc layer doesn't have activation quantizer, 
+because it is softmax (output has dimension 10 and we are working with CIFAR10 dataset which contains 10 different classes)
+
+Layers (shape/number of activations):
+
+conv1/Asize     16384.0
+res1/layer1/basicblock1/Asize   16384.0
+res1/layer1/Asize       16384.0
+res1/layer2/basicblock1/Asize   16384.0
+res1/layer2/Asize       16384.0
+res1/layer3/basicblock1/Asize   16384.0
+res1/layer3/Asize       16384.0
+res2/layer1/basicblock1/Asize   8192.0
+res2/layer1/Asize       8192.0
+res2/layer2/basicblock1/Asize   8192.0
+res2/layer2/Asize       8192.0
+res2/layer3/basicblock1/Asize   8192.0
+res2/layer3/Asize       8192.0
+res3/layer1/basicblock1/Asize   4096.0
+res3/layer1/Asize       4096.0
+res3/layer2/basicblock1/Asize   4096.0
+res3/layer2/Asize       4096.0
+res3/layer3/basicblock1/Asize   4096.0
+res3/layer3/Asize       4096.0
+
+
+Whole network:
+21 quantizers for weights + 19 quantizers for activations = 40 quantizers (each quantizer having 2 parameters <in our case delta and xmax>)
+
+
+Logger for all the parameters in the network: 
+    conv1/quantized_conv/W
+    conv1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    conv1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    conv1/bn/beta
+    conv1/bn/gamma
+    conv1/Aquant/parametric_fp_d_xmax/d
+    conv1/Aquant/parametric_fp_d_xmax/xmax
+    res1/layer1/basicblock1/quantized_conv/W
+    res1/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res1/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res1/layer1/basicblock1/bn/beta
+    res1/layer1/basicblock1/bn/gamma
+    res1/layer1/basicblock1/Aquant/parametric_fp_d_xmax/d
+    res1/layer1/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+    res1/layer1/basicblock2/quantized_conv/W
+    res1/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res1/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res1/layer1/basicblock2/bn/beta
+    res1/layer1/basicblock2/bn/gamma
+    res1/layer1/Aquant/parametric_fp_d_xmax/d
+    res1/layer1/Aquant/parametric_fp_d_xmax/xmax
+    res1/layer2/basicblock1/quantized_conv/W
+    res1/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res1/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res1/layer2/basicblock1/bn/beta
+    res1/layer2/basicblock1/bn/gamma
+    res1/layer2/basicblock1/Aquant/parametric_fp_d_xmax/d
+    res1/layer2/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+    res1/layer2/basicblock2/quantized_conv/W
+    res1/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res1/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res1/layer2/basicblock2/bn/beta
+    res1/layer2/basicblock2/bn/gamma
+    res1/layer2/Aquant/parametric_fp_d_xmax/d
+    res1/layer2/Aquant/parametric_fp_d_xmax/xmax
+    res1/layer3/basicblock1/quantized_conv/W
+    res1/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res1/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res1/layer3/basicblock1/bn/beta
+    res1/layer3/basicblock1/bn/gamma
+    res1/layer3/basicblock1/Aquant/parametric_fp_d_xmax/d
+    res1/layer3/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+    res1/layer3/basicblock2/quantized_conv/W
+    res1/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res1/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res1/layer3/basicblock2/bn/beta
+    res1/layer3/basicblock2/bn/gamma
+    res1/layer3/Aquant/parametric_fp_d_xmax/d
+    res1/layer3/Aquant/parametric_fp_d_xmax/xmax
+    res2/layer1/basicblock1/quantized_conv/W
+    res2/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res2/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res2/layer1/basicblock1/bn/beta
+    res2/layer1/basicblock1/bn/gamma
+    res2/layer1/basicblock1/Aquant/parametric_fp_d_xmax/d
+    res2/layer1/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+    res2/layer1/basicblock2/quantized_conv/W
+    res2/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res2/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res2/layer1/basicblock2/bn/beta
+    res2/layer1/basicblock2/bn/gamma
+    res2/layer1/Aquant/parametric_fp_d_xmax/d
+    res2/layer1/Aquant/parametric_fp_d_xmax/xmax
+    res2/layer2/basicblock1/quantized_conv/W
+    res2/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res2/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res2/layer2/basicblock1/bn/beta
+    res2/layer2/basicblock1/bn/gamma
+    res2/layer2/basicblock1/Aquant/parametric_fp_d_xmax/d
+    res2/layer2/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+    res2/layer2/basicblock2/quantized_conv/W
+    res2/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res2/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res2/layer2/basicblock2/bn/beta
+    res2/layer2/basicblock2/bn/gamma
+    res2/layer2/Aquant/parametric_fp_d_xmax/d
+    res2/layer2/Aquant/parametric_fp_d_xmax/xmax
+    res2/layer3/basicblock1/quantized_conv/W
+    res2/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res2/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res2/layer3/basicblock1/bn/beta
+    res2/layer3/basicblock1/bn/gamma
+    res2/layer3/basicblock1/Aquant/parametric_fp_d_xmax/d
+    res2/layer3/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+    res2/layer3/basicblock2/quantized_conv/W
+    res2/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res2/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res2/layer3/basicblock2/bn/beta
+    res2/layer3/basicblock2/bn/gamma
+    res2/layer3/Aquant/parametric_fp_d_xmax/d
+    res2/layer3/Aquant/parametric_fp_d_xmax/xmax
+    res3/layer1/basicblock1/quantized_conv/W
+    res3/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res3/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res3/layer1/basicblock1/bn/beta
+    res3/layer1/basicblock1/bn/gamma
+    res3/layer1/basicblock1/Aquant/parametric_fp_d_xmax/d
+    res3/layer1/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+    res3/layer1/basicblock2/quantized_conv/W
+    res3/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res3/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res3/layer1/basicblock2/bn/beta
+    res3/layer1/basicblock2/bn/gamma
+    res3/layer1/Aquant/parametric_fp_d_xmax/d
+    res3/layer1/Aquant/parametric_fp_d_xmax/xmax
+    res3/layer2/basicblock1/quantized_conv/W
+    res3/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res3/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res3/layer2/basicblock1/bn/beta
+    res3/layer2/basicblock1/bn/gamma
+    res3/layer2/basicblock1/Aquant/parametric_fp_d_xmax/d
+    res3/layer2/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+    res3/layer2/basicblock2/quantized_conv/W
+    res3/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res3/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res3/layer2/basicblock2/bn/beta
+    res3/layer2/basicblock2/bn/gamma
+    res3/layer2/Aquant/parametric_fp_d_xmax/d
+    res3/layer2/Aquant/parametric_fp_d_xmax/xmax
+    res3/layer3/basicblock1/quantized_conv/W
+    res3/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res3/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res3/layer3/basicblock1/bn/beta
+    res3/layer3/basicblock1/bn/gamma
+    res3/layer3/basicblock1/Aquant/parametric_fp_d_xmax/d
+    res3/layer3/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+    res3/layer3/basicblock2/quantized_conv/W
+    res3/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+    res3/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+    res3/layer3/basicblock2/bn/beta
+    res3/layer3/basicblock2/bn/gamma
+    res3/layer3/Aquant/parametric_fp_d_xmax/d
+    res3/layer3/Aquant/parametric_fp_d_xmax/xmax
+    fc/quantized_affine/W
+    fc/quantized_affine/Wquant/parametric_fp_d_xmax/d
+    fc/quantized_affine/Wquant/parametric_fp_d_xmax/xmax
+    fc/quantized_affine/b
+    fc/quantized_affine/bquant/parametric_fp_d_xmax/d
+    fc/quantized_affine/bquant/parametric_fp_d_xmax/xmax

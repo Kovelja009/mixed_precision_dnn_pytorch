@@ -1,0 +1,366 @@
+2023-11-04 23:07:58,045 [nnabla][INFO]: Initializing CPU extension...
+Namespace(experiment='PARAMETRIC_FP_WAQ_DELTA_XMAX_RLR', gpu=0, cfg='train_resnet_quant_fp.cfg')
+2023-11-04 23:07:58,305 [nnabla][INFO]: Configuration:
+2023-11-04 23:07:58,305 [nnabla][INFO]:   experiment = PARAMETRIC_FP_WAQ_DELTA_XMAX_RLR
+2023-11-04 23:07:58,305 [nnabla][INFO]:   num_layers = 20
+2023-11-04 23:07:58,305 [nnabla][INFO]:   shortcut_type = 
+2023-11-04 23:07:58,305 [nnabla][INFO]:   initial_learning_rate = 0.01
+2023-11-04 23:07:58,305 [nnabla][INFO]:   optimizer = None
+2023-11-04 23:07:58,305 [nnabla][INFO]:   weightfile = None
+2023-11-04 23:07:58,305 [nnabla][INFO]:   w_quantize = parametric_fp_d_xmax
+2023-11-04 23:07:58,305 [nnabla][INFO]:   a_quantize = parametric_fp_d_xmax_relu
+2023-11-04 23:07:58,305 [nnabla][INFO]:   w_stepsize = 0.125
+2023-11-04 23:07:58,305 [nnabla][INFO]:   w_stepsize_min = 0.00390625
+2023-11-04 23:07:58,305 [nnabla][INFO]:   w_stepsize_max = 1.0
+2023-11-04 23:07:58,305 [nnabla][INFO]:   w_xmin_min = 1.52587890625e-05
+2023-11-04 23:07:58,305 [nnabla][INFO]:   w_xmin_max = 127.0
+2023-11-04 23:07:58,305 [nnabla][INFO]:   w_xmax_min = 0.00390625
+2023-11-04 23:07:58,305 [nnabla][INFO]:   w_xmax_max = 127.0
+2023-11-04 23:07:58,305 [nnabla][INFO]:   w_bitwidth = 4
+2023-11-04 23:07:58,305 [nnabla][INFO]:   w_bitwidth_min = 2
+2023-11-04 23:07:58,306 [nnabla][INFO]:   w_bitwidth_max = 8
+2023-11-04 23:07:58,306 [nnabla][INFO]:   a_stepsize = 0.125
+2023-11-04 23:07:58,306 [nnabla][INFO]:   a_stepsize_min = 0.00390625
+2023-11-04 23:07:58,306 [nnabla][INFO]:   a_stepsize_max = 1.0
+2023-11-04 23:07:58,306 [nnabla][INFO]:   a_xmin_min = 6.103515625e-05
+2023-11-04 23:07:58,306 [nnabla][INFO]:   a_xmin_max = 255.0
+2023-11-04 23:07:58,306 [nnabla][INFO]:   a_xmax_min = 0.00390625
+2023-11-04 23:07:58,306 [nnabla][INFO]:   a_xmax_max = 255.0
+2023-11-04 23:07:58,306 [nnabla][INFO]:   a_bitwidth = 4
+2023-11-04 23:07:58,306 [nnabla][INFO]:   a_bitwidth_min = 1
+2023-11-04 23:07:58,306 [nnabla][INFO]:   a_bitwidth_max = 8
+2023-11-04 23:07:58,306 [nnabla][INFO]:   target_weight_kbytes = -1.0
+2023-11-04 23:07:58,306 [nnabla][INFO]:   target_activation_kbytes = -1.0
+2023-11-04 23:07:58,306 [nnabla][INFO]:   target_activation_type = max
+2023-11-04 23:07:58,306 [nnabla][INFO]:   initial_cost_lambda2 = 0.1
+2023-11-04 23:07:58,306 [nnabla][INFO]:   initial_cost_lambda3 = 0.1
+2023-11-04 23:07:58,306 [nnabla][INFO]:   scale_layer = False
+lr=(0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001, 0.0001)
+weight_decay=0.0002
+momentum=0.9
+2023-11-04 23:07:58,498 [nnabla][INFO]: Initializing CUDA extension...
+openmpi library is not found, distribution training feature is disabled.
+2023-11-04 23:07:58,526 [nnabla][INFO]: Initializing cuDNN extension...
+2023-11-04 23:07:58,536 [nnabla][INFO]: Get CIFAR10 Data ...
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+Quantized affine/conv initialized to delta=0.125, xmax=0.875
+conv1/quantized_conv/W  (16, 3, 3, 3)   432
+res1/layer1/basicblock1/quantized_conv/W        (16, 16, 3, 3)  2304
+res1/layer1/basicblock2/quantized_conv/W        (16, 16, 3, 3)  2304
+res1/layer2/basicblock1/quantized_conv/W        (16, 16, 3, 3)  2304
+res1/layer2/basicblock2/quantized_conv/W        (16, 16, 3, 3)  2304
+res1/layer3/basicblock1/quantized_conv/W        (16, 16, 3, 3)  2304
+res1/layer3/basicblock2/quantized_conv/W        (16, 16, 3, 3)  2304
+res2/layer1/basicblock1/quantized_conv/W        (32, 16, 3, 3)  4608
+res2/layer1/basicblock2/quantized_conv/W        (32, 32, 3, 3)  9216
+res2/layer2/basicblock1/quantized_conv/W        (32, 32, 3, 3)  9216
+res2/layer2/basicblock2/quantized_conv/W        (32, 32, 3, 3)  9216
+res2/layer3/basicblock1/quantized_conv/W        (32, 32, 3, 3)  9216
+res2/layer3/basicblock2/quantized_conv/W        (32, 32, 3, 3)  9216
+res3/layer1/basicblock1/quantized_conv/W        (64, 32, 3, 3)  18432
+res3/layer1/basicblock2/quantized_conv/W        (64, 64, 3, 3)  36864
+res3/layer2/basicblock1/quantized_conv/W        (64, 64, 3, 3)  36864
+res3/layer2/basicblock2/quantized_conv/W        (64, 64, 3, 3)  36864
+res3/layer3/basicblock1/quantized_conv/W        (64, 64, 3, 3)  36864
+res3/layer3/basicblock2/quantized_conv/W        (64, 64, 3, 3)  36864
+fc/quantized_affine/W   (64, 10)        640
+fc/quantized_affine/b   (10,)   10
+Initial network size (weights) is 131.028KB (total number of weights: 268346).
+conv1/Asize     16384.0
+res1/layer1/basicblock1/Asize   16384.0
+res1/layer1/Asize       16384.0
+res1/layer2/basicblock1/Asize   16384.0
+res1/layer2/Asize       16384.0
+res1/layer3/basicblock1/Asize   16384.0
+res1/layer3/Asize       16384.0
+res2/layer1/basicblock1/Asize   8192.0
+res2/layer1/Asize       8192.0
+res2/layer2/basicblock1/Asize   8192.0
+res2/layer2/Asize       8192.0
+res2/layer3/basicblock1/Asize   8192.0
+res2/layer3/Asize       8192.0
+res3/layer1/basicblock1/Asize   4096.0
+res3/layer1/Asize       4096.0
+res3/layer2/basicblock1/Asize   4096.0
+res3/layer2/Asize       4096.0
+res3/layer3/basicblock1/Asize   4096.0
+res3/layer3/Asize       4096.0
+Initial network size (activations) is 8.000KB (total number of activations: 188416).
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+We use default delta ((0.125, 1.875)) for quantized nonlinearity.
+2023-11-04 23:08:00,776 [nnabla][INFO]: Start Training ...
+conv1/quantized_conv/W
+conv1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+conv1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+conv1/bn/beta
+conv1/bn/gamma
+conv1/Aquant/parametric_fp_d_xmax/d
+conv1/Aquant/parametric_fp_d_xmax/xmax
+res1/layer1/basicblock1/quantized_conv/W
+res1/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res1/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res1/layer1/basicblock1/bn/beta
+res1/layer1/basicblock1/bn/gamma
+res1/layer1/basicblock1/Aquant/parametric_fp_d_xmax/d
+res1/layer1/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+res1/layer1/basicblock2/quantized_conv/W
+res1/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res1/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res1/layer1/basicblock2/bn/beta
+res1/layer1/basicblock2/bn/gamma
+res1/layer1/Aquant/parametric_fp_d_xmax/d
+res1/layer1/Aquant/parametric_fp_d_xmax/xmax
+res1/layer2/basicblock1/quantized_conv/W
+res1/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res1/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res1/layer2/basicblock1/bn/beta
+res1/layer2/basicblock1/bn/gamma
+res1/layer2/basicblock1/Aquant/parametric_fp_d_xmax/d
+res1/layer2/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+res1/layer2/basicblock2/quantized_conv/W
+res1/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res1/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res1/layer2/basicblock2/bn/beta
+res1/layer2/basicblock2/bn/gamma
+res1/layer2/Aquant/parametric_fp_d_xmax/d
+res1/layer2/Aquant/parametric_fp_d_xmax/xmax
+res1/layer3/basicblock1/quantized_conv/W
+res1/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res1/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res1/layer3/basicblock1/bn/beta
+res1/layer3/basicblock1/bn/gamma
+res1/layer3/basicblock1/Aquant/parametric_fp_d_xmax/d
+res1/layer3/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+res1/layer3/basicblock2/quantized_conv/W
+res1/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res1/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res1/layer3/basicblock2/bn/beta
+res1/layer3/basicblock2/bn/gamma
+res1/layer3/Aquant/parametric_fp_d_xmax/d
+res1/layer3/Aquant/parametric_fp_d_xmax/xmax
+res2/layer1/basicblock1/quantized_conv/W
+res2/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res2/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res2/layer1/basicblock1/bn/beta
+res2/layer1/basicblock1/bn/gamma
+res2/layer1/basicblock1/Aquant/parametric_fp_d_xmax/d
+res2/layer1/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+res2/layer1/basicblock2/quantized_conv/W
+res2/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res2/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res2/layer1/basicblock2/bn/beta
+res2/layer1/basicblock2/bn/gamma
+res2/layer1/Aquant/parametric_fp_d_xmax/d
+res2/layer1/Aquant/parametric_fp_d_xmax/xmax
+res2/layer2/basicblock1/quantized_conv/W
+res2/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res2/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res2/layer2/basicblock1/bn/beta
+res2/layer2/basicblock1/bn/gamma
+res2/layer2/basicblock1/Aquant/parametric_fp_d_xmax/d
+res2/layer2/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+res2/layer2/basicblock2/quantized_conv/W
+res2/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res2/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res2/layer2/basicblock2/bn/beta
+res2/layer2/basicblock2/bn/gamma
+res2/layer2/Aquant/parametric_fp_d_xmax/d
+res2/layer2/Aquant/parametric_fp_d_xmax/xmax
+res2/layer3/basicblock1/quantized_conv/W
+res2/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res2/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res2/layer3/basicblock1/bn/beta
+res2/layer3/basicblock1/bn/gamma
+res2/layer3/basicblock1/Aquant/parametric_fp_d_xmax/d
+res2/layer3/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+res2/layer3/basicblock2/quantized_conv/W
+res2/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res2/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res2/layer3/basicblock2/bn/beta
+res2/layer3/basicblock2/bn/gamma
+res2/layer3/Aquant/parametric_fp_d_xmax/d
+res2/layer3/Aquant/parametric_fp_d_xmax/xmax
+res3/layer1/basicblock1/quantized_conv/W
+res3/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res3/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res3/layer1/basicblock1/bn/beta
+res3/layer1/basicblock1/bn/gamma
+res3/layer1/basicblock1/Aquant/parametric_fp_d_xmax/d
+res3/layer1/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+res3/layer1/basicblock2/quantized_conv/W
+res3/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res3/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res3/layer1/basicblock2/bn/beta
+res3/layer1/basicblock2/bn/gamma
+res3/layer1/Aquant/parametric_fp_d_xmax/d
+res3/layer1/Aquant/parametric_fp_d_xmax/xmax
+res3/layer2/basicblock1/quantized_conv/W
+res3/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res3/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res3/layer2/basicblock1/bn/beta
+res3/layer2/basicblock1/bn/gamma
+res3/layer2/basicblock1/Aquant/parametric_fp_d_xmax/d
+res3/layer2/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+res3/layer2/basicblock2/quantized_conv/W
+res3/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res3/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res3/layer2/basicblock2/bn/beta
+res3/layer2/basicblock2/bn/gamma
+res3/layer2/Aquant/parametric_fp_d_xmax/d
+res3/layer2/Aquant/parametric_fp_d_xmax/xmax
+res3/layer3/basicblock1/quantized_conv/W
+res3/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res3/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res3/layer3/basicblock1/bn/beta
+res3/layer3/basicblock1/bn/gamma
+res3/layer3/basicblock1/Aquant/parametric_fp_d_xmax/d
+res3/layer3/basicblock1/Aquant/parametric_fp_d_xmax/xmax
+res3/layer3/basicblock2/quantized_conv/W
+res3/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d
+res3/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax
+res3/layer3/basicblock2/bn/beta
+res3/layer3/basicblock2/bn/gamma
+res3/layer3/Aquant/parametric_fp_d_xmax/d
+res3/layer3/Aquant/parametric_fp_d_xmax/xmax
+fc/quantized_affine/W
+fc/quantized_affine/Wquant/parametric_fp_d_xmax/d
+fc/quantized_affine/Wquant/parametric_fp_d_xmax/xmax
+fc/quantized_affine/b
+fc/quantized_affine/bquant/parametric_fp_d_xmax/d
+fc/quantized_affine/bquant/parametric_fp_d_xmax/xmax
+2023-11-04 23:09:02,609 [nnabla][INFO]: Parameter save (.h5): PARAMETRIC_FP_WAQ_DELTA_XMAX_RLR/params_best.h5
+conv1/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 0.2034408301115036
+conv1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+conv1/Aquant/parametric_fp_d_xmax/d 0.052858397364616394 0.02471560426056385
+conv1/Aquant/parametric_fp_d_xmax/xmax 1.929181694984436 -0.0006531407125294209
+res1/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.006592295132577419 0.21691365540027618
+res1/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8670786023139954 0.00016213773051276803
+res1/layer1/basicblock1/Aquant/parametric_fp_d_xmax/d 0.03250284492969513 -0.001772431773133576
+res1/layer1/basicblock1/Aquant/parametric_fp_d_xmax/xmax 1.940556287765503 -0.008467750623822212
+res1/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.022455986589193344 -0.18554581701755524
+res1/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res1/layer1/Aquant/parametric_fp_d_xmax/d 0.12207761406898499 0.007754840422421694
+res1/layer1/Aquant/parametric_fp_d_xmax/xmax 1.8835368156433105 -0.01849469542503357
+res1/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 0.16065166890621185
+res1/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res1/layer2/basicblock1/Aquant/parametric_fp_d_xmax/d 0.07602881640195847 0.005820593796670437
+res1/layer2/basicblock1/Aquant/parametric_fp_d_xmax/xmax 1.9132945537567139 -0.007077410817146301
+res1/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.016732139512896538 0.08393336832523346
+res1/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res1/layer2/Aquant/parametric_fp_d_xmax/d 0.13888725638389587 -0.0011551021598279476
+res1/layer2/Aquant/parametric_fp_d_xmax/xmax 1.8573740720748901 -0.015125136822462082
+res1/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.038556404411792755 -0.005054015200585127
+res1/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res1/layer3/basicblock1/Aquant/parametric_fp_d_xmax/d 0.08520964533090591 -0.001374125829897821
+res1/layer3/basicblock1/Aquant/parametric_fp_d_xmax/xmax 1.9343591928482056 0.003578663570806384
+res1/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.004213622771203518 -0.0803770199418068
+res1/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res1/layer3/Aquant/parametric_fp_d_xmax/d 0.109572634100914 0.003807828761637211
+res1/layer3/Aquant/parametric_fp_d_xmax/xmax 1.9191993474960327 -0.006379409693181515
+res2/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 -0.033479221165180206
+res2/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8719148635864258 0.0006204203236848116
+res2/layer1/basicblock1/Aquant/parametric_fp_d_xmax/d 0.11416768282651901 -0.003977869637310505
+res2/layer1/basicblock1/Aquant/parametric_fp_d_xmax/xmax 1.9091063737869263 0.0015875328099355102
+res2/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 0.0254526250064373
+res2/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8737972378730774 5.168913412489928e-05
+res2/layer1/Aquant/parametric_fp_d_xmax/d 0.113319031894207 0.0029585284646600485
+res2/layer1/Aquant/parametric_fp_d_xmax/xmax 1.9586294889450073 0.0019737419206649065
+res2/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 -0.08030109107494354
+res2/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res2/layer2/basicblock1/Aquant/parametric_fp_d_xmax/d 0.11066614091396332 0.004958754405379295
+res2/layer2/basicblock1/Aquant/parametric_fp_d_xmax/xmax 1.8811538219451904 0.00340599799528718
+res2/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.014520750381052494 -0.0017685748171061277
+res2/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res2/layer2/Aquant/parametric_fp_d_xmax/d 0.12075267732143402 0.003067030105739832
+res2/layer2/Aquant/parametric_fp_d_xmax/xmax 1.9103258848190308 0.004822293762117624
+res2/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 0.13489556312561035
+res2/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res2/layer3/basicblock1/Aquant/parametric_fp_d_xmax/d 0.11044621467590332 0.002546556293964386
+res2/layer3/basicblock1/Aquant/parametric_fp_d_xmax/xmax 1.8801605701446533 -0.00657688919454813
+res2/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 0.07249081879854202
+res2/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res2/layer3/Aquant/parametric_fp_d_xmax/d 0.10986551642417908 0.0037563364021480083
+res2/layer3/Aquant/parametric_fp_d_xmax/xmax 1.884402871131897 -0.0038336797151714563
+res3/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.008493315428495407 0.009127170778810978
+res3/layer1/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8682950735092163 -0.0006438486743718386
+res3/layer1/basicblock1/Aquant/parametric_fp_d_xmax/d 0.11473046243190765 -0.006893558893352747
+res3/layer1/basicblock1/Aquant/parametric_fp_d_xmax/xmax 1.8879473209381104 0.0019927327521145344
+res3/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 -0.06555242091417313
+res3/layer1/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res3/layer1/Aquant/parametric_fp_d_xmax/d 0.11563711613416672 -0.009055051952600479
+res3/layer1/Aquant/parametric_fp_d_xmax/xmax 1.9567408561706543 -0.02492225170135498
+res3/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 0.014657065272331238
+res3/layer2/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8686185479164124 -6.813631625846028e-05
+res3/layer2/basicblock1/Aquant/parametric_fp_d_xmax/d 0.1155620664358139 -0.0038458933122456074
+res3/layer2/basicblock1/Aquant/parametric_fp_d_xmax/xmax 1.9055918455123901 0.005025943741202354
+res3/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 0.005017636809498072
+res3/layer2/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res3/layer2/Aquant/parametric_fp_d_xmax/d 0.08183968812227249 0.00030156332650221884
+res3/layer2/Aquant/parametric_fp_d_xmax/xmax 1.9371685981750488 -0.002943754196166992
+res3/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 0.04133027419447899
+res3/layer3/basicblock1/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res3/layer3/basicblock1/Aquant/parametric_fp_d_xmax/d 0.10542163252830505 0.00045983080053701997
+res3/layer3/basicblock1/Aquant/parametric_fp_d_xmax/xmax 1.9110307693481445 -0.002290171105414629
+res3/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/d 0.015570947900414467 0.009402841329574585
+res3/layer3/basicblock2/quantized_conv/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+res3/layer3/Aquant/parametric_fp_d_xmax/d 0.12468273192644119 0.0020459676161408424
+res3/layer3/Aquant/parametric_fp_d_xmax/xmax 2.275635242462158 -0.008903492242097855
+fc/quantized_affine/Wquant/parametric_fp_d_xmax/d 0.003916250076144934 0.2123255580663681
+fc/quantized_affine/Wquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+fc/quantized_affine/bquant/parametric_fp_d_xmax/d 0.06786927580833435 0.019351966679096222
+fc/quantized_affine/bquant/parametric_fp_d_xmax/xmax 0.8683560490608215 0.00017367467808071524
+2023-11-04 23:09:02,749 [nnabla][INFO]: epoch=0(iter=390); overall cost=1.8928663730621338; cross-entropy cost=1.8928663730621338; weight-size cost=0.0; activations-size cost=0.0; TrainErr=0.7199118589743589; ValidErr=0.6027000000000001; BestValidErr=0.6027000000000001
