@@ -84,6 +84,12 @@ class ModuleQuantizer(nn.Module):
                 parameter.data = _old_param_data[name]
         return outputs
 
+    def get_quantized_bitwidths(self):
+        bitwidths = {}
+        for name, (quantizer, _) in self._quantizers.items():
+            bitwidths[name] = quantizer.b.data.item()
+        return bitwidths
+
 
 
 
