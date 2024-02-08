@@ -5,13 +5,13 @@ import sys
 
 def plot_one_model(experiment_name):
     # Read in the data
-    train_data = pd.read_csv(f'{experiment_name}/train_losses.csv')
-    test_data = pd.read_csv(f'{experiment_name}/test_losses.csv')
+    train_data = pd.read_csv(f'{experiment_name}/train_losses_q.csv')
+    test_data = pd.read_csv(f'{experiment_name}/test_losses_q.csv')
 
     plt.figure(figsize=(10, 6))
     plt.plot(train_data['epoch'], train_data['loss'], label='Train Loss', marker='o', color='blue')
     plt.plot(test_data['epoch'], test_data['loss'], label='Test Loss', marker='x', color='red')
-    plt.title('Train Loss and Test Loss over iterations (uniform quantization with learnable delta and xmax)')
+    plt.title('Train Loss and Test Loss over iterations (uniform quantization with learnable delta and b)')
     plt.xlabel('Epoch')
     plt.ylabel('Loss')
     plt.legend()
@@ -72,5 +72,5 @@ if __name__ == '__main__':
         exit(1)
 
     experiment_name = sys.argv[1]
-    plot_compare_models(experiment_name)
+    plot_one_model(experiment_name)
 

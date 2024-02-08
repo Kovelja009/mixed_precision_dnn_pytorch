@@ -31,6 +31,9 @@ class Quantizer(nn.Module):
         self.xmax = Parameter(torch.tensor(xmax_init), requires_grad=train_xmax)
         self.sign = sign
 
+
+    # TRIED assignments to self.b, self.d, self.xmax, check if it works -> can't execute forward that way
+    # current bug path -> not calling forward in the training loop
     def forward(self, x: Tensor):
         def quantize_pow2(v):
             return 2 ** torch.round(torch.log(v) / np.log(2.0))
@@ -52,6 +55,10 @@ class Quantizer(nn.Module):
 
         # compute min/max value that we can represent
         xmin = -xmax if self.sign else torch.tensor(0.0, requires_grad=False)
+
+        d = d.to(x.device)
+        xmax = xmax.to(x.device)
+        xmin = xmin.to(x.device)
 
         # apply fixed-point quantization
         return d * torch.round(torch.clamp(x, xmin, xmax) / d)

@@ -36,7 +36,7 @@ def train_network(cfg, should_quantize=True):
         model = resnet18(weights=None)
         model.fc = nn.Linear(model.fc.in_features, num_classes)  # Replace the last fully connected layer
         # model_q = ModuleQuantizer(model, to_train=(False, True, True))  # delta and xmax
-        model_q = ModuleQuantizer(model, to_train=(False, True, True))  # b and delta
+        model_q = ModuleQuantizer(model, to_train=(True, True, False))  # b and delta
 
     else:
         model_q = resnet18(weights=None)
@@ -81,11 +81,10 @@ def train_network(cfg, should_quantize=True):
 
             optimizer.zero_grad()
 
+            outputs = model_q(inputs)
             if should_quantize:
-                outputs = model_q.network(inputs)
                 loss = quantize_loss(model_q, criterion, outputs, labels, cfg, device)
             else:
-                outputs = model_q(inputs)
                 loss = criterion(outputs, labels)
             loss.backward()
             optimizer.step()
@@ -106,11 +105,10 @@ def train_network(cfg, should_quantize=True):
             inputs, labels = data
             inputs, labels = inputs.to(device), labels.to(device)
 
+            outputs = model_q(inputs)
             if should_quantize:
-                outputs = model_q.network(inputs)
                 loss = quantize_loss(model_q, criterion, outputs, labels, cfg, device)
             else:
-                outputs = model_q(inputs)
                 loss = criterion(outputs, labels)
 
             running_test_loss += loss.item()
@@ -130,8 +128,11 @@ def train_network(cfg, should_quantize=True):
 
     if should_quantize:
         bitwidths_dict = model_q.get_quantized_bitwidths()
+        print('Bithwidths:')
         print(bitwidths_dict)
-
+        print('------------------------------------')
+        for name, (quantizer, _) in model_q._quantizers.items():
+            print(quantizer)
     return train_losses, test_losses, train_accs, test_accs
 
 
@@ -180,35 +181,3 @@ if __name__ == '__main__':
     file_writting(test_losses_file, ["epoch", "loss"], test_losses)
     file_writting(train_accs_file, ["epoch", "accuracy"], train_accs)
     file_writting(test_accs_file, ["epoch", "accuracy"], test_accs)
-    #
-    # with open(f'{train_losses_file}', 'w', newline='') as file:
-    #     writer = csv.writer(file)
-    #     writer.writerow(["epoch", "loss"])
-    #     for loss in train_losses:
-    #         writer.writerow(loss)
-    #
-    # # test
-    # if should_quantize:
-    # else:
-    #     test_losses_file = f'{save_path}/test_losses.csv'
-    #
-    # with open(f'{test_losses_file}', 'w', newline='') as file:
-    #     writer = csv.writer(file)
-    #     writer.writerow(["epoch", "loss"])
-    #     for loss in test_losses:
-    #         writer.writerow(loss)
-    #
-    # # write accuracies into csv file
-    # # train
-    # with open(f'{save_path}/train_accs.csv', 'w', newline='') as file:
-    #     writer = csv.writer(file)
-    #     writer.writerow(["epoch", "accuracy"])
-    #     for acc in train_accs:
-    #         writer.writerow(acc)
-    #
-    # # test
-    # with open(f'{save_path}/test_accs.csv', 'w', newline='') as file:
-    #     writer = csv.writer(file)
-    #     writer.writerow(["epoch", "accuracy"])
-    #     for acc in test_accs:
-    #         writer.writerow(acc)
